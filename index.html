@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Online Data Entry</title>
+  <style>
+  body {
+    font-family: Arial, sans-serif;
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  }
+  h2 {
+    text-align: center;
+    color: #333;
+  }
+  label {
+    margin-top: 15px;
+    font-weight: bold;
+    display: block;
+  }
+  input {
+    padding: 10px;
+    margin-top: 5px;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+  }
+  button {
+    margin-top: 20px;
+    padding: 12px;
+    width: 100%;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  button:hover {
+    background-color: #0056b3;
+  }
+</style>
+</head>
+<body>
+  <h2>Submit Your Info</h2>
+  <form id="data-entry-form">
+    <label>Name</label>
+    <input name="name" required />
+
+    <label>Phone Number</label>
+    <input name="phone" required />
+
+    <label>Email</label>
+    <input name="email" type="email" required />
+
+    <button type="submit">Submit</button>
+  </form>
+
+  <script>
+    const form = document.getElementById("data-entry-form");
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const formData = new FormData(form);
+
+      fetch("https://script.google.com/macros/s/AKfycbyjp6kpZCFUkjw824mkSOY0Ry4UQy1jm-PhQO_HoEJn8wJJGnyCqfvXP_vcx4v3QRzR9Q/exec", {
+        method: "POST",
+        body: formData
+      })
+        .then((res) => res.text())
+        .then((data) => {
+          alert("✅ Submitted!");
+          form.reset();
+        })
+        .catch((err) => {
+          alert("❌ Failed to submit.");
+          console.error(err);
+        });
+    });
+  </script>
+</body>
+</html>
